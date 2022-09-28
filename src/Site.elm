@@ -19,7 +19,7 @@ type alias Data =
 config : SiteConfig Data
 config =
     { data = data
-    , canonicalUrl = "https://tkoyasak.dev"
+    , canonicalUrl = "https://blog.tkoyasak.dev"
     , manifest = manifest
     , head = head
     }
@@ -59,12 +59,12 @@ manifest _ =
 
 title : String
 title =
-    "tkoyasak.dev"
+    "Himagine Imagine"
 
 
 description : String
 description =
-    "tkoyasak's website"
+    "tkoyasak's blog"
 
 
 iconUrl : Pages.Url.Url
