@@ -1,8 +1,8 @@
 {
-  "name": "tkoyasak.dev",
-  "description": "tkoyasak's website",
-  "repository": "https://github.com/tkoyasak/tkoyasak.dev",
-  "homepage": "https://tkoyasak.dev",
+  "name": "blog",
+  "description": "tkoyasak's blog",
+  "repository": "https://github.com/tkoyasak/blog",
+  "homepage": "https://blog.tkoyasak.dev",
   "author": "tkoyasak",
   "license": "MIT",
   "private": true,

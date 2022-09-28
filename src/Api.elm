@@ -18,7 +18,7 @@ routes :
 routes _ _ =
     [ rss
         { siteTagline = Site.description
-        , siteUrl = "https://tkoyasak.dev"
+        , siteUrl = "https://blog.tkoyasak.dev"
         , title = Site.title
         , builtAt = Pages.builtAt
         , indexPage = [ "" ]
