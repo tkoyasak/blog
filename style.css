@@ -1,0 +1,128 @@
+/*
+** normalize.css v8.0.1
+** MIT License (https://github.com/necolas/normalize.css)
+** Copyright (c) Nicolas Gallagher and Jonathan Neal
+*/
+@import url("https://unpkg.com/normalize.css@8.0.1/normalize.css");
+
+/*
+** terminal.css v0.7.2
+** MIT License (https://github.com/Gioni06/terminal.css)
+** Copyright (c) 2019 Jonas D.
+*/
+@import url("https://unpkg.com/terminal.css@0.7.2/dist/terminal.min.css");
+
+:root {
+  --global-font-size: 15px;
+  --global-line-height: 1.4em;
+  --global-space: 10px;
+  --font-stack: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace, serif;
+  --mono-font-stack: Menlo, Monaco, Lucida Console, Liberation Mono,
+    DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+  --background-color: #222225;
+  --page-width: 60em;
+  --font-color: #e8e9ed;
+  --invert-font-color: #222225;
+  --primary-color: #62c4ff;
+  --secondary-color: #a3abba;
+  --error-color: #ff3c74;
+  --progress-bar-background: #3f3f44;
+  --progress-bar-fill: #62c4ff;
+  --code-bg-color: #36363b;
+  --input-style: solid;
+  --display-h1-decoration: none;
+}
+
+.terminal-footer {
+  text-align: center;
+  color: var(--secondary-color);
+  padding: 40px 0;
+  line-height: 1.5rem;
+  font-size: 0.8rem;
+}
+
+.terminal-page-title {
+  margin-bottom: 2px;
+  border-bottom: 3px dotted var(--primary-color);
+}
+
+.terminal-page-title-divider {
+  margin-bottom: 30px;
+  border-top: 3px dotted var(--primary-color);
+}
+
+.terminal-page-title h1 {
+  color: var(--primary-color);
+}
+
+.terminal-post-item {
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.terminal-post-tags {
+  color: var(--secondary-color);
+}
+
+.terminal-post-tags li {
+  list-style-type: none;
+  padding: 0 !important;
+  display: inline;
+}
+
+.terminal-post-tags li:not(:last-child) {
+  margin-right: var(--global-space);
+}
+
+.terminal-post-tags li::after,
+.terminal-post-tags li::before {
+  display: none;
+}
+
+.terminal-post-tags li a {
+  background: none;
+  color: inherit;
+}
+
+.terminal-tags-list li {
+  list-style-type: none;
+  padding: 0 !important;
+  display: inline;
+}
+
+.terminal-tags-list li:not(:last-child) {
+  margin-right: calc(var(--global-space) * 2);
+}
+
+.terminal-tags-list li::before,
+.terminal-tags-list li::after {
+  display: none;
+}
+
+.terminal-tag-item {
+  white-space: nowrap;
+}
+
+.terminal-footer a,
+.post-content a {
+  color: inherit;
+  text-decoration-style: dotted;
+  text-decoration-line: underline;
+  text-decoration-color: var(--primary-color);
+}
+
+.terminal-footer a:hover,
+.post-content a:hover {
+  background-color: inherit;
+  color: inherit;
+}
+
+pre code {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: var(--font-color);
+  background-color: var(--background-color) !important;
+}

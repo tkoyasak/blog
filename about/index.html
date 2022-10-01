@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+  <html lang="ja">
+  <head>
+    <link rel="stylesheet" href="/style.css">
+    
+    <link rel="preload" href="/elm.js" as="script">
+    <link rel="modulepreload" href="/index.js">
+    
+    <script defer="defer" src="/elm.js" type="text/javascript"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script type="module">
+import userInit from"/index.js";
+let prefetchedPages=[window.location.pathname],initialLocationHash=document.location.hash.replace(/^#/,"");function loadContentAndInitializeApp(){let a=window.location.pathname.replace(/(w)$/,"$1/");a.endsWith("/")||(a+="/");const b=Elm.TemplateModulesBeta.init({flags:{secrets:null,baseUrl:document.baseURI,isPrerendering:!1,isDevServer:!1,isElmDebugMode:!1,contentJson:JSON.parse(document.getElementById("__ELM_PAGES_DATA__").innerHTML),userFlags:userInit.flags()}});return b.ports.toJsPort.subscribe(()=>{loadNamedAnchor()}),b}function loadNamedAnchor(){if(""!==initialLocationHash){const a=document.querySelector(`[name=${initialLocationHash}]`);a&&a.scrollIntoView()}}function prefetchIfNeeded(a){if(a.host===window.location.host&&!prefetchedPages.includes(a.pathname)){prefetchedPages.push(a.pathname),console.log("Preloading...",a.pathname);const b=document.createElement("link");b.setAttribute("as","fetch"),b.setAttribute("rel","prefetch"),b.setAttribute("href",origin+a.pathname+"/content.json"),document.head.appendChild(b)}}const appPromise=new Promise(function(a){document.addEventListener("DOMContentLoaded",()=>{a(loadContentAndInitializeApp())})});userInit.load(appPromise),"function"==typeof connect&&connect(function(a){appPromise.then(b=>{b.ports.fromJsPort.send({contentJson:a})})});const trigger_prefetch=b=>{const c=find_anchor(b.target);c&&c.href&&c.hasAttribute("elm-pages:prefetch")&&prefetchIfNeeded(c)};let mousemove_timeout;const handle_mousemove=a=>{clearTimeout(mousemove_timeout),mousemove_timeout=setTimeout(()=>{trigger_prefetch(a)},20)};addEventListener("touchstart",trigger_prefetch),addEventListener("mousemove",handle_mousemove);function find_anchor(a){for(;a&&"A"!==a.nodeName.toUpperCase();)a=a.parentNode;return a}
+    </script>
+    <title>About</title>
+    <meta name="generator" content="elm-pages v2.1.10">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <link rel="canonical" href="https://blog.tkoyasak.dev/about" />    <meta name="description" content="tkoyasak&apos;s blog" />    <meta property="og:image" content="https://blog.tkoyasak.dev/images/icon.jpg" />    <meta property="og:image:secure_url" content="https://blog.tkoyasak.dev/images/icon.jpg" />    <meta property="og:image:alt" content="Himagine Imagine icon" />    <meta property="og:title" content="About | Himagine Imagine" />    <meta property="og:url" content="https://blog.tkoyasak.dev/about" />    <meta property="og:description" content="tkoyasak&apos;s blog" />    <meta property="og:site_name" content="Himagine Imagine" />    <meta property="twitter:card" content="summary" />    <meta property="twitter:title" content="About | Himagine Imagine" />    <meta property="twitter:description" content="tkoyasak&apos;s blog" />    <meta property="twitter:image" content="https://blog.tkoyasak.dev/images/icon.jpg" />    <meta property="twitter:image:alt" content="Himagine Imagine icon" />    <meta property="og:type" content="website" />    <link rel="alternate" type="application/rss+xml" href="/feed.xml" />    <link rel="icon" sizes="100x100" type="image/jpeg" href="https://blog.tkoyasak.dev/images/icon.jpg" />    <meta name="theme-color" content="#222225" />
+    <script id="__ELM_PAGES_DATA__" type="application/json">{"staticData":{"467129186":"{\"revisedAt\":\"2022-06-06T03:56:10.789Z\",\"about\":\"### Account\\n- [Github](https://github.com/tkoyasak)\\n- [Twitter](https://twitter.com/tkoyasak)\\n- [AtCoder](https://atcoder.jp/users/tkoyasak)\\n- [BookMeter](https://bookmeter.com/users/1204476/books/read)\\n\"}"},"is404":false,"path":"about"}</script>
+    </head>
+    <body>
+      <div data-url="" display="none"></div>
+      <div class="terminal container"><div class="terminal-nav"><header class="navbar-logo"><div class="logo terminal-prompt"><a class="no-style" href="/">Himagine Imagine</a></div></header><nav class="terminal-menu"><ul><li><a class="menu-item" href="/posts">Posts</a></li><li><a class="menu-item" href="/tags">Tags</a></li><li><a class="menu-item" href="/about">About</a></li></ul></nav></div><main><div><header class="terminal-page-title"><h1>About</h1></header><div class="terminal-page-title-divider"></div></div>### Account
+- [Github](https://github.com/tkoyasak)
+- [Twitter](https://twitter.com/tkoyasak)
+- [AtCoder](https://atcoder.jp/users/tkoyasak)
+- [BookMeter](https://bookmeter.com/users/1204476/books/read)
+</main><div class="terminal-footer"><footer><span>Powered by <a href="https://elm-pages.com" rel="noopener noreferrer" target="_blank">elm-pages</a> &amp; <a href="https://terminalcss.xyz" rel="noopener noreferrer" target="_blank">terminal.css</a></span><br><span>© 2022 tkoyasak</span></footer></div></div>
+    </body>
+  </html>
+  
