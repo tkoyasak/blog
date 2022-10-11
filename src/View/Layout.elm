@@ -1,9 +1,9 @@
 module View.Layout exposing (..)
 
-import Data.Blog
 import Date
 import Html exposing (Html, a, br, div, footer, h1, h2, header, li, main_, nav, p, section, span, text, ul)
 import Html.Attributes exposing (class, href, rel, target)
+import Metadata
 import Site
 
 
@@ -27,7 +27,7 @@ navbar_ =
                 [ class "logo terminal-prompt" ]
                 [ a
                     [ href "/", class "no-style" ]
-                    [ text (Site.title ++ " ...")]
+                    [ text (Site.title ++ " ...") ]
                 ]
             ]
         , nav
@@ -93,7 +93,7 @@ pageTitle title =
         ]
 
 
-postsList : List Data.Blog.PostMetadata -> Html msg
+postsList : List Metadata.Post -> Html msg
 postsList posts =
     section []
         (List.map
@@ -114,7 +114,7 @@ postsList posts =
         )
 
 
-postTags : Data.Blog.PostMetadata -> Html msg
+postTags : Metadata.Post -> Html msg
 postTags post =
     ul
         [ class "terminal-post-tags" ]
@@ -134,7 +134,7 @@ postTags post =
         )
 
 
-tagsList : List Data.Blog.TagWithCount -> Html msg
+tagsList : List Metadata.TagWithCount -> Html msg
 tagsList tags =
     section
         [ class "terminal-tags-list" ]

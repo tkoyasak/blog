@@ -1,12 +1,12 @@
 module Page.Posts.Slug_ exposing (Data, Model, Msg, page)
 
-import Data.Blog
 import DataSource exposing (DataSource)
 import Date
 import Head
 import Head.Seo as Seo
 import Html.Attributes exposing (class)
 import Markdown
+import Metadata
 import Page exposing (Page, StaticPayload)
 import Pages.PageUrl exposing (PageUrl)
 import Shared
@@ -28,7 +28,7 @@ type alias RouteParams =
 
 
 type alias Data =
-    Data.Blog.PostMetadata
+    Metadata.Post
 
 
 page : Page RouteParams Data
@@ -43,14 +43,14 @@ page =
 
 data : RouteParams -> DataSource Data
 data route =
-    Data.Blog.getPostById route.slug
+    Metadata.getPostById route.slug
         |> DataSource.map
             (\metadata -> metadata)
 
 
 routes : DataSource (List RouteParams)
 routes =
-    Data.Blog.getAllPosts
+    Metadata.getAllPosts
         |> DataSource.map
             (List.map (\post -> { slug = post.id }))
 

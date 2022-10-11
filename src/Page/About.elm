@@ -1,11 +1,11 @@
 module Page.About exposing (Data, Model, Msg, page)
 
-import Data.Blog
 import DataSource exposing (DataSource)
 import Head
 import Head.Seo as Seo
 import Html.Attributes exposing (class)
 import Markdown
+import Metadata
 import Page exposing (Page, StaticPayload)
 import Pages.PageUrl exposing (PageUrl)
 import Shared
@@ -27,7 +27,7 @@ type alias RouteParams =
 
 
 type alias Data =
-    Data.Blog.AboutMetadata
+    Metadata.About
 
 
 page : Page RouteParams Data
@@ -41,7 +41,7 @@ page =
 
 data : DataSource Data
 data =
-    Data.Blog.getAbout
+    Metadata.getAbout
 
 
 head :

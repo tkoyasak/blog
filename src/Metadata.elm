@@ -1,4 +1,4 @@
-module Data.Blog exposing (AboutMetadata, PostMetadata, TagMetadata, TagWithCount, getAbout, getAllPosts, getAllTags, getPostById, getPostsByTag, getTagsWithCount)
+module Metadata exposing (About, Post, Tag, TagWithCount, getAbout, getAllPosts, getAllTags, getPostById, getPostsByTag, getTagsWithCount)
 
 import DataSource
 import DataSource.Http
@@ -9,10 +9,10 @@ import OptimizedDecoder as Decoder
 import Pages.Secrets as Secrets
 
 
-type alias PostMetadata =
+type alias Post =
     { id : String
     , title : String
-    , tags : List TagMetadata
+    , tags : List Tag
     , summary : String
     , description : String
     , publishedAt : Date
@@ -20,7 +20,7 @@ type alias PostMetadata =
     }
 
 
-type alias TagMetadata =
+type alias Tag =
     { id : String
     , name : String
     }
@@ -32,7 +32,7 @@ type alias TagWithCount =
     }
 
 
-type alias AboutMetadata =
+type alias About =
     { about : String
     , revisedAt : Date
     }
@@ -56,28 +56,28 @@ requestContent query =
         )
 
 
-decodePostMetadata : Decoder.Decoder PostMetadata
-decodePostMetadata =
-    Decoder.map7 PostMetadata
+decodePost : Decoder.Decoder Post
+decodePost =
+    Decoder.map7 Post
         (Decoder.field "id" Decoder.string)
         (Decoder.field "title" Decoder.string)
-        (Decoder.field "tags" (Decoder.list decodeTagMetadata))
+        (Decoder.field "tags" (Decoder.list decodeTag))
         (Decoder.field "summary" Decoder.string)
         (Decoder.field "description" Decoder.string)
         (Decoder.field "publishedAt" decodeDate)
         (Decoder.field "revisedAt" decodeDate)
 
 
-decodeTagMetadata : Decoder.Decoder TagMetadata
-decodeTagMetadata =
-    Decoder.map2 TagMetadata
+decodeTag : Decoder.Decoder Tag
+decodeTag =
+    Decoder.map2 Tag
         (Decoder.field "id" Decoder.string)
         (Decoder.field "name" Decoder.string)
 
 
-decodeAboutMetadata : Decoder.Decoder AboutMetadata
-decodeAboutMetadata =
-    Decoder.map2 AboutMetadata
+decodeAbout : Decoder.Decoder About
+decodeAbout =
+    Decoder.map2 About
         (Decoder.field "about" Decoder.string)
         (Decoder.field "revisedAt" decodeDate)
 
@@ -93,25 +93,25 @@ decodeDate =
             )
 
 
-getAllPosts : DataSource.DataSource (List PostMetadata)
+getAllPosts : DataSource.DataSource (List Post)
 getAllPosts =
     requestContent
         "posts"
-        (Decoder.field "contents" (Decoder.list decodePostMetadata))
+        (Decoder.field "contents" (Decoder.list decodePost))
 
 
-getPostById : String -> DataSource.DataSource PostMetadata
+getPostById : String -> DataSource.DataSource Post
 getPostById id =
     requestContent
         ("posts/" ++ id)
-        decodePostMetadata
+        decodePost
 
 
-getPostsByTag : String -> DataSource.DataSource (List PostMetadata)
+getPostsByTag : String -> DataSource.DataSource (List Post)
 getPostsByTag tagname =
     requestContent
         "posts"
-        (Decoder.field "contents" (Decoder.list decodePostMetadata))
+        (Decoder.field "contents" (Decoder.list decodePost))
         |> DataSource.map
             (\allPosts ->
                 List.filter
@@ -126,11 +126,11 @@ getPostsByTag tagname =
             )
 
 
-getAllTags : DataSource.DataSource (List TagMetadata)
+getAllTags : DataSource.DataSource (List Tag)
 getAllTags =
     requestContent
         "tags"
-        (Decoder.field "contents" (Decoder.list decodeTagMetadata))
+        (Decoder.field "contents" (Decoder.list decodeTag))
 
 
 getTagsWithCount : DataSource.DataSource (List TagWithCount)
@@ -163,8 +163,8 @@ descendingOrder a b =
             LT
 
 
-getAbout : DataSource.DataSource AboutMetadata
+getAbout : DataSource.DataSource About
 getAbout =
     requestContent
         "about"
-        decodeAboutMetadata
+        decodeAbout
