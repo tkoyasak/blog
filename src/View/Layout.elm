@@ -27,7 +27,7 @@ navbar_ =
                 [ class "logo terminal-prompt" ]
                 [ a
                     [ href "/", class "no-style" ]
-                    [ text Site.title ]
+                    [ text (Site.title ++ " ...")]
                 ]
             ]
         , nav
