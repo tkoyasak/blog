@@ -1,6 +1,6 @@
 module View.Layout exposing (..)
 
-import Data.Posts
+import Data.Blog
 import Date
 import Html exposing (Html, a, br, div, footer, h1, h2, header, li, main_, nav, p, section, span, text, ul)
 import Html.Attributes exposing (class, href, rel, target)
@@ -93,7 +93,7 @@ pageTitle title =
         ]
 
 
-postsList : List Data.Posts.Metadata -> Html msg
+postsList : List Data.Blog.PostMetadata -> Html msg
 postsList posts =
     section []
         (List.map
@@ -114,7 +114,7 @@ postsList posts =
         )
 
 
-postTags : Data.Posts.Metadata -> Html msg
+postTags : Data.Blog.PostMetadata -> Html msg
 postTags post =
     ul
         [ class "terminal-post-tags" ]
@@ -134,19 +134,19 @@ postTags post =
         )
 
 
-tagsList : List ( String, Int ) -> Html msg
+tagsList : List Data.Blog.TagWithCount -> Html msg
 tagsList tags =
     section
         [ class "terminal-tags-list" ]
         [ ul []
             (List.map
-                (\( tag, count ) ->
+                (\tag ->
                     li
                         [ class "terminal-tag-item" ]
                         [ a
-                            [ href ("/tags/" ++ tag) ]
-                            [ text ("#" ++ tag) ]
-                        , text (" (" ++ String.fromInt count ++ ")")
+                            [ href ("/tags/" ++ tag.name) ]
+                            [ text ("#" ++ tag.name) ]
+                        , text (" (" ++ String.fromInt tag.count ++ ")")
                         ]
                 )
                 tags

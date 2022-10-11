@@ -1,7 +1,6 @@
 module Page.Tags.Tag_ exposing (Data, Model, Msg, page)
 
-import Data.Posts
-import Data.Tags
+import Data.Blog
 import DataSource exposing (DataSource)
 import Head
 import Head.Seo as Seo
@@ -26,7 +25,7 @@ type alias RouteParams =
 
 
 type alias Data =
-    { entries : List Data.Posts.Metadata, tag : String }
+    { entries : List Data.Blog.PostMetadata, tag : String }
 
 
 page : Page RouteParams Data
@@ -43,13 +42,13 @@ data : RouteParams -> DataSource.DataSource Data
 data route =
     DataSource.map2
         Data
-        (Data.Posts.getPostsByTag route.tag)
+        (Data.Blog.getPostsByTag route.tag)
         (DataSource.succeed route.tag)
 
 
 routes : DataSource (List RouteParams)
 routes =
-    Data.Tags.getAllTags
+    Data.Blog.getAllTags
         |> DataSource.map
             (List.map (\metadata -> { tag = metadata.name }))
 

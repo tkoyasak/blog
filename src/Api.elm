@@ -1,7 +1,7 @@
 module Api exposing (routes)
 
 import ApiRoute
-import Data.Posts
+import Data.Blog
 import DataSource
 import Html exposing (Html)
 import Pages
@@ -29,7 +29,7 @@ routes _ _ =
 
 postsDataSource : DataSource.DataSource (List Rss.Item)
 postsDataSource =
-    Data.Posts.getAllPosts
+    Data.Blog.getAllPosts
         |> DataSource.map
             (List.map
                 (\post ->

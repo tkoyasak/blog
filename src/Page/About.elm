@@ -1,6 +1,6 @@
 module Page.About exposing (Data, Model, Msg, page)
 
-import Data.About
+import Data.Blog
 import DataSource exposing (DataSource)
 import Head
 import Head.Seo as Seo
@@ -27,7 +27,7 @@ type alias RouteParams =
 
 
 type alias Data =
-    Data.About.Metadata
+    Data.Blog.AboutMetadata
 
 
 page : Page RouteParams Data
@@ -41,7 +41,7 @@ page =
 
 data : DataSource Data
 data =
-    Data.About.getAbout
+    Data.Blog.getAbout
 
 
 head :

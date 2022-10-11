@@ -1,6 +1,6 @@
 module Page.Tags exposing (Data, Model, Msg, page)
 
-import Data.Tags
+import Data.Blog
 import DataSource exposing (DataSource)
 import Head
 import Head.Seo as Seo
@@ -25,7 +25,7 @@ type alias RouteParams =
 
 
 type alias Data =
-    List ( String, Int )
+    List Data.Blog.TagWithCount
 
 
 page : Page RouteParams Data
@@ -39,7 +39,7 @@ page =
 
 data : DataSource Data
 data =
-    Data.Tags.getTagsWithCount
+    Data.Blog.getTagsWithCount
 
 
 head :
