@@ -119,6 +119,23 @@
   color: inherit;
 }
 
+.terminal-account-links {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.terminal-account-links li::before,
+.terminal-account-links li::after {
+  display: none;
+}
+
+.terminal-account-links li {
+  list-style-type: none;
+  padding: 0 10px;
+  display: inline;
+}
+
 pre code {
   display: block;
   overflow-x: auto;

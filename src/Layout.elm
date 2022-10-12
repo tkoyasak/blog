@@ -1,6 +1,7 @@
 module Layout exposing (layout, pageTitle, postTags, postsList, tagsList)
 
 import Date
+import FeatherIcons
 import Html exposing (Html, a, br, div, footer, h1, h2, header, li, main_, nav, p, section, span, text, ul)
 import Html.Attributes exposing (class, href, rel, target)
 import Metadata
@@ -58,7 +59,15 @@ footer_ =
     div
         [ class "terminal-footer" ]
         [ footer []
-            [ span []
+            [ ul
+                [ class "terminal-account-links" ]
+                (List.map
+                    (\link ->
+                        li [] [ link ]
+                    )
+                    accountLinks
+                )
+            , span []
                 [ text "Powered by "
                 , a
                     [ href "https://elm-pages.com"
@@ -79,6 +88,27 @@ footer_ =
                 [ text "© 2022 tkoyasak" ]
             ]
         ]
+
+
+accountLinks : List (Html msg)
+accountLinks =
+    List.map
+        (\account ->
+            a
+                [ href account.url ]
+                [ account.icon
+                    |> FeatherIcons.toHtml []
+                ]
+        )
+        accounts
+
+
+accounts : List { icon : FeatherIcons.Icon, url : String }
+accounts =
+    [ { icon = FeatherIcons.rss, url = Site.config.canonicalUrl ++ "/feed.xml" }
+    , { icon = FeatherIcons.github, url = "https://github.com/tkoyasak" }
+    , { icon = FeatherIcons.twitter, url = "https://twitter.com/tkoyasak" }
+    ]
 
 
 pageTitle : String -> Html msg
