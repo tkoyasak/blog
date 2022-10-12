@@ -9,6 +9,24 @@ import OptimizedDecoder as Decoder
 import Pages.Secrets as Secrets
 
 
+requestContent :
+    String
+    -> Decoder.Decoder a
+    -> DataSource.DataSource a
+requestContent query =
+    DataSource.Http.request
+        (Secrets.succeed
+            (\apiKey ->
+                { url = "https://tkoyasak.microcms.io/api/v1/" ++ query
+                , method = "GET"
+                , headers = [ ( "X-MICROCMS-API-KEY", apiKey ) ]
+                , body = DataSource.Http.emptyBody
+                }
+            )
+            |> Secrets.with "API_KEY"
+        )
+
+
 type alias Post =
     { id : String
     , title : String
@@ -36,24 +54,6 @@ type alias About =
     { about : String
     , revisedAt : Date
     }
-
-
-requestContent :
-    String
-    -> Decoder.Decoder a
-    -> DataSource.DataSource a
-requestContent query =
-    DataSource.Http.request
-        (Secrets.succeed
-            (\apiKey ->
-                { url = "https://tkoyasak.microcms.io/api/v1/" ++ query
-                , method = "GET"
-                , headers = [ ( "X-MICROCMS-API-KEY", apiKey ) ]
-                , body = DataSource.Http.emptyBody
-                }
-            )
-            |> Secrets.with "API_KEY"
-        )
 
 
 decodePost : Decoder.Decoder Post
@@ -147,20 +147,20 @@ getTagsWithCount =
         |> DataSource.map List.concat
         |> DataSource.map Dict.frequencies
         |> DataSource.map (Dict.foldr (\key value list -> TagWithCount key value :: list) [])
-        |> DataSource.map (List.sortWith descendingOrder)
+        |> DataSource.map
+            (List.sortWith
+                (\a b ->
+                    case compare a.count b.count of
+                        LT ->
+                            GT
 
+                        EQ ->
+                            EQ
 
-descendingOrder : TagWithCount -> TagWithCount -> Order
-descendingOrder a b =
-    case compare a.count b.count of
-        LT ->
-            GT
-
-        EQ ->
-            EQ
-
-        GT ->
-            LT
+                        GT ->
+                            LT
+                )
+            )
 
 
 getAbout : DataSource.DataSource About
