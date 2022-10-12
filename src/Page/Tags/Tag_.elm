@@ -3,13 +3,13 @@ module Page.Tags.Tag_ exposing (Data, Model, Msg, page)
 import DataSource exposing (DataSource)
 import Head
 import Head.Seo as Seo
+import Layout
 import Metadata
 import Page exposing (Page, StaticPayload)
 import Pages.PageUrl exposing (PageUrl)
 import Shared
 import Site
 import View exposing (View)
-import View.Layout
 
 
 type alias Model =
@@ -81,7 +81,7 @@ view :
 view _ _ static =
     { title = "Tag : #" ++ static.data.tag
     , body =
-        [ View.Layout.pageTitle ("Tag : #" ++ static.data.tag)
-        , View.Layout.postsList static.data.entries
+        [ Layout.pageTitle ("Tag : #" ++ static.data.tag)
+        , Layout.postsList static.data.entries
         ]
     }

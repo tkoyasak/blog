@@ -1,4 +1,4 @@
-module View.Layout exposing (..)
+module Layout exposing (layout, pageTitle, postTags, postsList, tagsList)
 
 import Date
 import Html exposing (Html, a, br, div, footer, h1, h2, header, li, main_, nav, p, section, span, text, ul)
@@ -7,8 +7,8 @@ import Metadata
 import Site
 
 
-view : List (Html msg) -> Html msg
-view body =
+layout : List (Html msg) -> Html msg
+layout body =
     div
         [ class "terminal container" ]
         [ navbar_

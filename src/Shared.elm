@@ -3,13 +3,13 @@ module Shared exposing (Data, Model, Msg(..), SharedMsg(..), template)
 import Browser.Navigation
 import DataSource
 import Html exposing (Html)
+import Layout
 import Pages.Flags
 import Pages.PageUrl exposing (PageUrl)
 import Path exposing (Path)
 import Route exposing (Route)
 import SharedTemplate exposing (SharedTemplate)
 import View exposing (View)
-import View.Layout
 
 
 template : SharedTemplate Msg Model Data msg
@@ -93,6 +93,6 @@ view :
     -> View msg
     -> { body : Html msg, title : String }
 view _ _ _ _ pageView =
-    { body = View.Layout.view pageView.body
+    { body = Layout.layout pageView.body
     , title = pageView.title
     }

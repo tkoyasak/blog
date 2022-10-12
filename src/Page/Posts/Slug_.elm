@@ -5,6 +5,7 @@ import Date
 import Head
 import Head.Seo as Seo
 import Html.Attributes exposing (class)
+import Layout
 import Markdown
 import Metadata
 import Page exposing (Page, StaticPayload)
@@ -12,7 +13,6 @@ import Pages.PageUrl exposing (PageUrl)
 import Shared
 import Site
 import View exposing (View)
-import View.Layout
 
 
 type alias Model =
@@ -87,8 +87,8 @@ view :
 view _ _ static =
     { title = static.data.title ++ " - " ++ Site.title
     , body =
-        [ View.Layout.pageTitle static.data.title
-        , View.Layout.postTags static.data
+        [ Layout.pageTitle static.data.title
+        , Layout.postTags static.data
         , Markdown.toHtml [ class "post-content" ] static.data.description
         ]
     }
