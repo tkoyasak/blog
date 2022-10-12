@@ -1,18 +1,18 @@
 module Page.Posts.Slug_ exposing (Data, Model, Msg, page)
 
-import Data.Posts
 import DataSource exposing (DataSource)
 import Date
 import Head
 import Head.Seo as Seo
 import Html.Attributes exposing (class)
+import Layout
 import Markdown
+import Metadata
 import Page exposing (Page, StaticPayload)
 import Pages.PageUrl exposing (PageUrl)
 import Shared
 import Site
 import View exposing (View)
-import View.Layout
 
 
 type alias Model =
@@ -28,7 +28,7 @@ type alias RouteParams =
 
 
 type alias Data =
-    Data.Posts.Metadata
+    Metadata.Post
 
 
 page : Page RouteParams Data
@@ -43,14 +43,14 @@ page =
 
 data : RouteParams -> DataSource Data
 data route =
-    Data.Posts.getPostById route.slug
+    Metadata.getPostById route.slug
         |> DataSource.map
             (\metadata -> metadata)
 
 
 routes : DataSource (List RouteParams)
 routes =
-    Data.Posts.getAllPosts
+    Metadata.getAllPosts
         |> DataSource.map
             (List.map (\post -> { slug = post.id }))
 
@@ -87,8 +87,8 @@ view :
 view _ _ static =
     { title = static.data.title ++ " - " ++ Site.title
     , body =
-        [ View.Layout.pageTitle static.data.title
-        , View.Layout.postTags static.data
+        [ Layout.pageTitle static.data.title
+        , Layout.postTags static.data
         , Markdown.toHtml [ class "post-content" ] static.data.description
         ]
     }

@@ -1,15 +1,15 @@
 module Page.Posts exposing (Data, Model, Msg, page)
 
-import Data.Posts
 import DataSource exposing (DataSource)
 import Head
 import Head.Seo as Seo
+import Layout
+import Metadata
 import Page exposing (Page, StaticPayload)
 import Pages.PageUrl exposing (PageUrl)
 import Shared
 import Site
 import View exposing (View)
-import View.Layout
 
 
 type alias Model =
@@ -25,7 +25,7 @@ type alias RouteParams =
 
 
 type alias Data =
-    List Data.Posts.Metadata
+    List Metadata.Post
 
 
 page : Page RouteParams Data
@@ -39,7 +39,7 @@ page =
 
 data : DataSource Data
 data =
-    Data.Posts.getAllPosts
+    Metadata.getAllPosts
 
 
 head :
@@ -70,7 +70,7 @@ view :
 view _ _ static =
     { title = "Posts"
     , body =
-        [ View.Layout.pageTitle "Posts"
-        , View.Layout.postsList static.data
+        [ Layout.pageTitle "Posts"
+        , Layout.postsList static.data
         ]
     }

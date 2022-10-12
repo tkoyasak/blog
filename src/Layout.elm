@@ -1,14 +1,15 @@
-module View.Layout exposing (..)
+module Layout exposing (layout, pageTitle, postTags, postsList, tagsList)
 
-import Data.Posts
 import Date
+import FeatherIcons
 import Html exposing (Html, a, br, div, footer, h1, h2, header, li, main_, nav, p, section, span, text, ul)
 import Html.Attributes exposing (class, href, rel, target)
+import Metadata
 import Site
 
 
-view : List (Html msg) -> Html msg
-view body =
+layout : List (Html msg) -> Html msg
+layout body =
     div
         [ class "terminal container" ]
         [ navbar_
@@ -27,7 +28,7 @@ navbar_ =
                 [ class "logo terminal-prompt" ]
                 [ a
                     [ href "/", class "no-style" ]
-                    [ text Site.title ]
+                    [ text (Site.title ++ " ...") ]
                 ]
             ]
         , nav
@@ -58,7 +59,15 @@ footer_ =
     div
         [ class "terminal-footer" ]
         [ footer []
-            [ span []
+            [ ul
+                [ class "terminal-account-links" ]
+                (List.map
+                    (\link ->
+                        li [] [ link ]
+                    )
+                    accountLinks
+                )
+            , span []
                 [ text "Powered by "
                 , a
                     [ href "https://elm-pages.com"
@@ -81,6 +90,27 @@ footer_ =
         ]
 
 
+accountLinks : List (Html msg)
+accountLinks =
+    List.map
+        (\account ->
+            a
+                [ href account.url ]
+                [ account.icon
+                    |> FeatherIcons.toHtml []
+                ]
+        )
+        accounts
+
+
+accounts : List { icon : FeatherIcons.Icon, url : String }
+accounts =
+    [ { icon = FeatherIcons.rss, url = Site.config.canonicalUrl ++ "/feed.xml" }
+    , { icon = FeatherIcons.github, url = "https://github.com/tkoyasak" }
+    , { icon = FeatherIcons.twitter, url = "https://twitter.com/tkoyasak" }
+    ]
+
+
 pageTitle : String -> Html msg
 pageTitle title =
     div []
@@ -93,7 +123,7 @@ pageTitle title =
         ]
 
 
-postsList : List Data.Posts.Metadata -> Html msg
+postsList : List Metadata.Post -> Html msg
 postsList posts =
     section []
         (List.map
@@ -114,7 +144,7 @@ postsList posts =
         )
 
 
-postTags : Data.Posts.Metadata -> Html msg
+postTags : Metadata.Post -> Html msg
 postTags post =
     ul
         [ class "terminal-post-tags" ]
@@ -134,19 +164,19 @@ postTags post =
         )
 
 
-tagsList : List ( String, Int ) -> Html msg
+tagsList : List Metadata.TagWithCount -> Html msg
 tagsList tags =
     section
         [ class "terminal-tags-list" ]
         [ ul []
             (List.map
-                (\( tag, count ) ->
+                (\tag ->
                     li
                         [ class "terminal-tag-item" ]
                         [ a
-                            [ href ("/tags/" ++ tag) ]
-                            [ text ("#" ++ tag) ]
-                        , text (" (" ++ String.fromInt count ++ ")")
+                            [ href ("/tags/" ++ tag.name) ]
+                            [ text ("#" ++ tag.name) ]
+                        , text (" (" ++ String.fromInt tag.count ++ ")")
                         ]
                 )
                 tags

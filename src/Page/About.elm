@@ -1,17 +1,17 @@
 module Page.About exposing (Data, Model, Msg, page)
 
-import Data.About
 import DataSource exposing (DataSource)
 import Head
 import Head.Seo as Seo
 import Html.Attributes exposing (class)
+import Layout
 import Markdown
+import Metadata
 import Page exposing (Page, StaticPayload)
 import Pages.PageUrl exposing (PageUrl)
 import Shared
 import Site
 import View exposing (View)
-import View.Layout
 
 
 type alias Model =
@@ -27,7 +27,7 @@ type alias RouteParams =
 
 
 type alias Data =
-    Data.About.Metadata
+    Metadata.About
 
 
 page : Page RouteParams Data
@@ -41,7 +41,7 @@ page =
 
 data : DataSource Data
 data =
-    Data.About.getAbout
+    Metadata.getAbout
 
 
 head :
@@ -72,7 +72,7 @@ view :
 view _ _ static =
     { title = "About"
     , body =
-        [ View.Layout.pageTitle "About"
+        [ Layout.pageTitle "About"
         , Markdown.toHtml [ class "post-content" ] static.data.about
         ]
     }

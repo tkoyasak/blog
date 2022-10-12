@@ -1,15 +1,15 @@
 module Page.Tags exposing (Data, Model, Msg, page)
 
-import Data.Tags
 import DataSource exposing (DataSource)
 import Head
 import Head.Seo as Seo
+import Layout
+import Metadata
 import Page exposing (Page, StaticPayload)
 import Pages.PageUrl exposing (PageUrl)
 import Shared
 import Site
 import View exposing (View)
-import View.Layout
 
 
 type alias Model =
@@ -25,7 +25,7 @@ type alias RouteParams =
 
 
 type alias Data =
-    List ( String, Int )
+    List Metadata.TagWithCount
 
 
 page : Page RouteParams Data
@@ -39,7 +39,7 @@ page =
 
 data : DataSource Data
 data =
-    Data.Tags.getTagsWithCount
+    Metadata.getTagsWithCount
 
 
 head :
@@ -70,7 +70,7 @@ view :
 view _ _ static =
     { title = "Tags"
     , body =
-        [ View.Layout.pageTitle "Tags"
-        , View.Layout.tagsList static.data
+        [ Layout.pageTitle "Tags"
+        , Layout.tagsList static.data
         ]
     }
