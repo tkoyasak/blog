@@ -1,47 +1,29 @@
 /** @typedef {{load: (Promise<unknown>); flags: (unknown)}} ElmPagesInit */
 
-// Reference from https://github.com/nathanbraun/elm-pages-starter/blob/main/public/index.js
-
-const ANALYTICS_ID = "G-H8CVK3PT67";
-
-const trackPage = function (gtag, url) {
-  gtag("event", "page_view", { page_path: url });
-};
-
 /** @type ElmPagesInit */
 export default {
   load: async function (elmLoaded) {
     const app = await elmLoaded;
-
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag("config", ANALYTICS_ID, {
-      send_page_view: false,
-    });
-    gtag("js", new Date());
-
-    gtag("get", ANALYTICS_ID, "client_id", (client_id) => {
-      console.log(client_id);
-    });
-
-    app.ports.trackAnalytics.subscribe((payload) => {
-      switch (payload.action) {
-        case "navigateToPage":
-          trackPage(gtag, payload.data);
-      }
-    });
+    syntaxHighlight();
+    console.log("App loaded", app);
+  },
+  flags: function () {
+    return "You can decode this in Shared.elm using Json.Decode.string!";
   },
 };
 
-var gt = document.createElement("script");
-gt.setAttribute(
-  "src",
-  `https://www.googletagmanager.com/gtag/js?id=${ANALYTICS_ID}`
-);
-document.head.appendChild(gt);
+const syntaxHighlight = () => {
+  const script = document.createElement("script");
+  script.id = "highlight.js-script";
+  script.src =
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js";
+  script.async = true;
+  document.head.appendChild(script);
 
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-});
+  const runHljs = setInterval(() => {
+    if (window.hljs) {
+      window.hljs.highlightAll();
+      clearInterval(runHljs);
+    }
+  }, 1000);
+};
