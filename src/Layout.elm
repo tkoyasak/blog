@@ -1,7 +1,7 @@
 module Layout exposing (layout, pageTitle, postTags, postsList, tagsList)
 
 import Date
-import FeatherIcons
+import FeatherIcons as Icons
 import Html exposing (Html, a, br, div, footer, h1, h2, header, li, main_, nav, p, section, span, text, ul)
 import Html.Attributes exposing (class, href, rel, target)
 import Metadata
@@ -97,17 +97,18 @@ accountLinks =
             a
                 [ href account.url ]
                 [ account.icon
-                    |> FeatherIcons.toHtml []
+                    |> Icons.toHtml []
                 ]
         )
         accounts
 
 
-accounts : List { icon : FeatherIcons.Icon, url : String }
+accounts : List { icon : Icons.Icon, url : String }
 accounts =
-    [ { icon = FeatherIcons.rss, url = Site.config.canonicalUrl ++ "/feed.xml" }
-    , { icon = FeatherIcons.github, url = "https://github.com/tkoyasak" }
-    , { icon = FeatherIcons.twitter, url = "https://twitter.com/tkoyasak" }
+    [ { icon = Icons.rss, url = Site.config.canonicalUrl ++ "/feed.xml" }
+    , { icon = Icons.github, url = "https://github.com/tkoyasak" }
+    , { icon = Icons.twitter, url = "https://twitter.com/tkoyasak" }
+    , { icon = Icons.book, url = "https://bookmeter.com/users/1204476/books/read" }
     ]
 
 

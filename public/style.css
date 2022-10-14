@@ -108,13 +108,15 @@
 .terminal-footer a,
 .post-content a {
   color: inherit;
-  text-decoration-style: dotted;
+  text-decoration-style: dashed;
   text-decoration-line: underline;
   text-decoration-color: var(--primary-color);
+  text-underline-offset: 0.25em;
 }
 
 .terminal-footer a:hover,
 .post-content a:hover {
+  text-decoration-style: solid;
   background-color: inherit;
   color: inherit;
 }
