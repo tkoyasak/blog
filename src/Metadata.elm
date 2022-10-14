@@ -51,7 +51,7 @@ type alias TagWithCount =
 
 
 type alias About =
-    { about : String
+    { descriotion : String
     , revisedAt : Date
     }
 
@@ -78,7 +78,7 @@ decodeTag =
 decodeAbout : Decoder.Decoder About
 decodeAbout =
     Decoder.map2 About
-        (Decoder.field "about" Decoder.string)
+        (Decoder.field "description" Decoder.string)
         (Decoder.field "revisedAt" decodeDate)
 
 

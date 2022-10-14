@@ -73,6 +73,6 @@ view _ _ static =
     { title = "About"
     , body =
         [ Layout.pageTitle "About"
-        , Markdown.toHtml [ class "post-content" ] static.data.about
+        , Markdown.toHtml [ class "post-content" ] static.data.descriotion
         ]
     }
