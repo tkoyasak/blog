@@ -25,7 +25,7 @@ type alias RouteParams =
 
 
 type alias Data =
-    List Metadata.TagWithCount
+    List Metadata.Tag
 
 
 page : Page RouteParams Data

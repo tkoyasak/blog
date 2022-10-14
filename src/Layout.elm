@@ -164,7 +164,7 @@ postTags post =
         )
 
 
-tagsList : List Metadata.TagWithCount -> Html msg
+tagsList : List Metadata.Tag -> Html msg
 tagsList tags =
     section
         [ class "terminal-tags-list" ]

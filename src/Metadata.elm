@@ -1,4 +1,4 @@
-module Metadata exposing (About, Post, Tag, TagWithCount, getAbout, getAllPosts, getAllTags, getPostById, getPostsByTag, getTagsWithCount)
+module Metadata exposing (About, Post, Tag, getAbout, getAllPosts, getAllTags, getPostById, getPostsByTag, getTagsWithCount)
 
 import DataSource
 import DataSource.Http
@@ -39,12 +39,6 @@ type alias Post =
 
 
 type alias Tag =
-    { id : String
-    , name : String
-    }
-
-
-type alias TagWithCount =
     { name : String
     , count : Int
     }
@@ -71,8 +65,8 @@ decodePost =
 decodeTag : Decoder.Decoder Tag
 decodeTag =
     Decoder.map2 Tag
-        (Decoder.field "id" Decoder.string)
         (Decoder.field "name" Decoder.string)
+        (Decoder.succeed 0)
 
 
 decodeAbout : Decoder.Decoder About
@@ -116,11 +110,9 @@ getPostsByTag tagname =
             (\allPosts ->
                 List.filter
                     (\post ->
-                        List.member tagname
-                            (List.map
-                                (\metadata -> metadata.name)
-                                post.tags
-                            )
+                        List.member
+                            tagname
+                            (List.map (\tag -> tag.name) post.tags)
                     )
                     allPosts
             )
@@ -133,7 +125,7 @@ getAllTags =
         (Decoder.field "contents" (Decoder.list decodeTag))
 
 
-getTagsWithCount : DataSource.DataSource (List TagWithCount)
+getTagsWithCount : DataSource.DataSource (List Tag)
 getTagsWithCount =
     requestContent
         "posts"
@@ -146,7 +138,11 @@ getTagsWithCount =
         )
         |> DataSource.map List.concat
         |> DataSource.map Dict.frequencies
-        |> DataSource.map (Dict.foldr (\key value list -> TagWithCount key value :: list) [])
+        |> DataSource.map
+            (Dict.foldr
+                (\key value list -> Tag key value :: list)
+                []
+            )
         |> DataSource.map
             (List.sortWith
                 (\a b ->
